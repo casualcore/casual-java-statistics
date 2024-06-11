@@ -69,6 +69,7 @@ public class Client implements EventObserver, ConnectionObserver
                                               .build();
         eventStore.put(new AugmentedEvent(connection, serviceCall, data));
     }
+
     @Override
     public boolean equals(Object o)
     {
@@ -80,21 +81,25 @@ public class Client implements EventObserver, ConnectionObserver
         {
             return false;
         }
-        return Objects.equals(address, client.address) && Objects.equals(clientListener, client.clientListener);
+        return Objects.equals(address, client.address) && Objects.equals(clientListener, client.clientListener) && Objects.equals(eventStore, client.eventStore);
     }
+
     @Override
     public int hashCode()
     {
-        return Objects.hash(address, clientListener);
+        return Objects.hash(address, clientListener, eventStore);
     }
+
     @Override
     public String toString()
     {
         return "Client{" +
                 "address=" + address +
-                ", connectionObserver=" + clientListener +
+                ", clientListener=" + clientListener +
+                ", eventStore=" + eventStore +
                 '}';
     }
+
     @Override
     public void disconnected(EventClient client)
     {

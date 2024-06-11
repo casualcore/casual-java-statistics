@@ -65,4 +65,17 @@ public class ClientPool implements ClientListener
         clients.removeIf(instance -> Objects.equals(instance, client));
         connect(client.getHost());
     }
+
+    @Override
+    public String toString()
+    {
+        return "ClientPool{" +
+                "clients=" + clients +
+                ", domainId=" + domainId +
+                ", configuration=" + configuration +
+                ", scheduleFunction=" + scheduleFunction +
+                ", createClientFunction=" + createClientFunction +
+                ", maxBackoffMilliseconds=" + maxBackoffMilliseconds +
+                '}';
+    }
 }
