@@ -8,13 +8,13 @@ package se.laz.casual.statistics.pool;
 
 import se.laz.casual.statistics.AugmentedEventStore;
 
-import java.util.logging.Logger;
-
 public final class ClientFactory
 {
-    private static final Logger LOG = Logger.getLogger(ClientFactory.class.getName());
     private ClientFactory()
     {}
+    // We build with logging level WARN, however we do want to output this information regardless
+    // it is also not a warning
+    @SuppressWarnings("java:S106")
     public static Client createClient(Address address, ClientListener listener, AugmentedEventStore store)
     {
         Client client = Client.of(address, listener, store);

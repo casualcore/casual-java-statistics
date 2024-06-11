@@ -17,11 +17,9 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.logging.Logger;
 
 public class ClientPool implements ClientListener
 {
-    private static final Logger LOG = Logger.getLogger(ClientPool.class.getName());
     private final List<Client> clients = new ArrayList<>();
     private final UUID domainId;
     private final Configuration configuration;
@@ -57,6 +55,9 @@ public class ClientPool implements ClientListener
         Consumer<Client> clientConsumer = clients::add;
         new RepeatUntilSuccessTask<>(clientSupplier, clientConsumer, scheduleFunction, BackoffHelper.of(maxBackoffMilliseconds)).start();
     }
+    // We build with logging level WARN, however we do want to output this information regardless
+    // it is also not a warning
+    @SuppressWarnings("java:S106")
     @Override
     public void disconnected(Client client)
     {
