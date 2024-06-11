@@ -1,0 +1,93 @@
+/*
+ * Copyright (c) 2024, The casual project. All rights reserved.
+ *
+ * This software is licensed under the MIT license, https://opensource.org/licenses/MIT
+ */
+//-*- coding: utf-8 -*-
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'groovy'
+    id 'jacoco'
+    id "org.sonarqube" version "5.0.0.4638"
+}
+
+repositories {
+    mavenCentral()
+    maven {url 'https://s01.oss.sonatype.org/content/repositories/snapshots' }
+    mavenLocal()
+}
+
+apply from: "$rootProject.projectDir/versions.gradle"
+apply from: "$rootProject.projectDir/publish.gradle"
+
+sonar {
+    properties {
+        properties["sonar.host.url"] = 'http://localhost:9000'
+        properties["sonar.verbose"] = "true"
+        properties['sonar.java.source'] = 21
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport
+    jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED', '--add-opens=java.base/java.util=ALL-UNNAMED'
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+    }
+}
+
+// always run tests when running sonar
+rootProject.tasks['sonar'].dependsOn.add(subprojects.tasks['test'])
+
+dependencies {
+    implementation enforcedPlatform(libs.quarkus_platform)
+    implementation libs.quarkus_rest_jackson
+    implementation libs.quarkus_netty
+    implementation libs.quarkus_rest
+    implementation libs.quarkus_arc
+    implementation libs.casual_event_client
+    implementation libs.gson
+
+    testImplementation libs.casual_test
+    testImplementation libs.quarkus_junit5
+    testImplementation libs.rest_assured
+    testImplementation libs.gson
+    testImplementation libs.system_lambda
+    // for spock
+    testImplementation platform(libs.groovy_bom)
+    testImplementation libs.groovy
+    testImplementation platform(libs.spock_bom)
+    testImplementation libs.spock_core
+    testImplementation libs.byte_buddy
+    testImplementation libs.objenesis
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters' << "-Werror" << "-Xlint:unchecked"
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
