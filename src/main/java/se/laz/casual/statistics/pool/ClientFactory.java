@@ -19,7 +19,7 @@ public final class ClientFactory
     {
         Client client = Client.of(address, listener, store);
         client.connect().join();
-        LOG.info(() ->"Connected to " + address);
+        System.out.println("Connected to " + address);
         return client;
     }
 }

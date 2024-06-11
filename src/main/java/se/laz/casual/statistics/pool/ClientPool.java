@@ -60,7 +60,7 @@ public class ClientPool implements ClientListener
     @Override
     public void disconnected(Client client)
     {
-        LOG.info(() ->"Disconnected from " + client);
+        System.out.println("Disconnected from " + client);
         clients.removeIf(instance -> Objects.equals(instance, client));
         connect(client.getHost());
     }

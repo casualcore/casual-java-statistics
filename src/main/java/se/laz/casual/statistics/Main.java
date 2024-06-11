@@ -38,7 +38,8 @@ public class Main
                 EventWriter eventWriter = new EventWriter(AugmentedEventStoreFactory.getStore(domainId), ServiceCallStatistics::store, () -> true);
                 executorService.submit(eventWriter::waitForMessageAndStore);
                 Configuration configuration = ConfigurationService.of().getConfiguration();
-                ClientPool pool = ClientPool.of(configuration, 30_000L, scheduledExecutorService::schedule, ClientFactory::createClient, domainId);
+                long backOffMilliseconds = 30_000L;
+                ClientPool pool = ClientPool.of(configuration, backOffMilliseconds, scheduledExecutorService::schedule, ClientFactory::createClient, domainId);
                 pool.connect();
                 Quarkus.waitForExit();
             }
