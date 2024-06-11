@@ -32,7 +32,13 @@ CASUAL_STATISTICS_CONFIGURATION_FILE=~/casual-java-statistics/config.json java -
 
 ### Gradle
 
-implementation 'se.laz.casual:casual-java-statistics:0.0.1:uber-jar'
+```gradle
+dependencies {
+    implementation 'se.laz.casual:casual-java-statistics:0.0.1:uber-jar'
+}
+```
+
+Note that the actual uber-jar artifact from maven central will thus have the following name - `casual-java-statistics-0.0.1-uber-jar.jar`.
 
 ## How to query for information
 
