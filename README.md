@@ -1,13 +1,18 @@
+<!-- //-*- coding: utf-8 -*- -->
 # casual-java-statistics
+
+## Prerequisites
+
+Uses current LTS - Java 21.
 
 ## What is it?
 
 This is an application that connects to ( 1 - n) # of casual event servers to aggregate service call statistics.
 
-It relies on a configuration file which is pointed to by the environment variable CASUAL_STATISTICS_CONFIGURATION_FILE.
+It relies on a configuration file which is pointed to by the environment variable `CASUAL_STATISTICS_CONFIGURATION_FILE`.
 Note, it should be the absolute path.
 
-There's an example configuration file, `example-pools.json` in the root of the repository.
+There's an example configuration file, `config.json` in the root of the repository.
 It looks like this:
 ```json
 {
@@ -19,13 +24,21 @@ It looks like this:
 
 ## Example execution
 
+```sh
+CASUAL_STATISTICS_CONFIGURATION_FILE=~/casual-java-statistics/config.json java -jar ./build/casual-java-statistics-0.0.1.jar
+```
 
+## Maven central
+
+### Gradle
+
+implementation 'se.laz.casual:casual-java-statistics:0.0.1:uber-jar'
 
 ## How to query for information
 
 The endpoints that can be used for querying of information are as follows:
-* 'http://localhost:8080/statistics` - statistics for all connections
-* 'http://localhost:8080/statistics/10.98.129.216:7698' - statistics for the connection `10.98.129.216:7698`
+* `http://localhost:8080/statistics` - statistics for all connections
+* `http://localhost:8080/statistics/10.98.129.216:7698` - statistics for the connection `10.98.129.216:7698`
 
 Example output:
 ```json
@@ -80,8 +93,7 @@ Legend for the accumulated data:
 * lastCall - when the last call was called as LocalDateTime using system default ZoneId
   
 
-
-# Quarkus information
+# Quarkus information ( Developer information - if you are not a dev you can stop reading here)
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .

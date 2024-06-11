@@ -35,14 +35,14 @@ public class Main
             try(ExecutorService executorService = Executors.newSingleThreadExecutor();
                 ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 2);)
             {
+                Configuration configuration = ConfigurationService.of().getConfiguration();
                 EventWriter eventWriter = new EventWriter(AugmentedEventStoreFactory.getStore(domainId), ServiceCallStatistics::store, () -> true);
                 executorService.submit(eventWriter::waitForMessageAndStore);
-                Configuration configuration = ConfigurationService.of().getConfiguration();
                 long backOffMilliseconds = 30_000L;
                 ClientPool pool = ClientPool.of(configuration, backOffMilliseconds, scheduledExecutorService::schedule, ClientFactory::createClient, domainId);
                 pool.connect();
-                Quarkus.waitForExit();
             }
+            Quarkus.waitForExit();
             return 0;
         }
     }
