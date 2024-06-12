@@ -9,6 +9,8 @@ Uses current LTS - Java 21.
 
 This is an application that connects to ( 1 - n) # of casual event servers to aggregate service call statistics.
 
+Note that the aggregated data is in memory only, that is - it is transient.
+
 It relies on a configuration file which is pointed to by the environment variable `CASUAL_STATISTICS_CONFIGURATION_FILE`.
 Note, it should be the absolute path.
 
