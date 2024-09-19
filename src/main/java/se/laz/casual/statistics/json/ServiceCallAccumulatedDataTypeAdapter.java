@@ -14,6 +14,8 @@ import com.google.gson.JsonSerializer;
 import se.laz.casual.statistics.ServiceCallAccumulatedData;
 
 import java.lang.reflect.Type;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static se.laz.casual.statistics.TimeConverter.toSecondsWithPrecision;
@@ -35,7 +37,7 @@ public class ServiceCallAccumulatedDataTypeAdapter implements JsonSerializer<Ser
         jsonObject.addProperty("maxTime", toSecondsWithPrecision(src.maxTime(), precision));
         jsonObject.addProperty("numberOfPending", src.numberOfPending());
         jsonObject.addProperty("pendingAverageTime", toSecondsWithPrecision(src.averagePendingTime(), precision));
-        String isoLocalDateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(src.lastCall());
+        String isoLocalDateTime = ZonedDateTime.of(src.lastCall(), ZoneId.systemDefault()).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         jsonObject.addProperty("lastCall", isoLocalDateTime);
         return jsonObject;
     }
