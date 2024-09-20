@@ -37,6 +37,7 @@ class ServiceCallAccumulatedDataTypeAdapterTest extends Specification
       def json = element.getAsJsonObject()
       String lastCallUTCOffset = json['lastCall']
       lastCallUTCOffset = lastCallUTCOffset.takeBetween('"')
+      println("utc: ${lastCallUTCOffset}")
       ZonedDateTime roundtrip = ZonedDateTime.parse(lastCallUTCOffset, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
       then:
       null != lastCallUTCOffset

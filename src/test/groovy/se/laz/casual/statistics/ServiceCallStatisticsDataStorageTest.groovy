@@ -14,7 +14,7 @@ import spock.lang.Specification
 import java.time.Duration
 import java.time.temporal.ChronoUnit
 
-class ServiceCallStatisticsTest extends Specification
+class ServiceCallStatisticsDataStorageTest extends Specification
 {
    @Shared
    ServiceCallConnection sharedServiceCallConnection = new ServiceCallConnection('a very fast connection, also blue')
@@ -29,7 +29,7 @@ class ServiceCallStatisticsTest extends Specification
 
    def 'store, wrong usage'() {
       when:
-      ServiceCallStatistics.store(connection, serviceCall, data)
+      ServiceCallStatisticsDataStorage.store(connection, serviceCall, data)
       then:
       thrown(NullPointerException)
       where:
@@ -41,7 +41,7 @@ class ServiceCallStatisticsTest extends Specification
 
    def 'fetch, wrong usage'() {
       when:
-      ServiceCallStatistics.get(connection, serviceCall)
+      ServiceCallStatisticsDataStorage.get(connection, serviceCall)
       then:
       thrown(NullPointerException)
       where:
@@ -83,8 +83,8 @@ class ServiceCallStatisticsTest extends Specification
               .build()
 
       when:
-      ServiceCallStatistics.store(sharedServiceCallConnection, sharedServiceCall, initialData)
-      ServiceCallAccumulatedData accumulatedData = ServiceCallStatistics.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
+      ServiceCallStatisticsDataStorage.store(sharedServiceCallConnection, sharedServiceCall, initialData)
+      ServiceCallAccumulatedData accumulatedData = ServiceCallStatisticsDataStorage.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
       then:
       accumulatedData.numberOfPending() == numberOfPending
       accumulatedData.totalPendingTime() == Duration.ZERO
@@ -94,8 +94,8 @@ class ServiceCallStatisticsTest extends Specification
       accumulatedData.totalTime() == initialDuration
       accumulatedData.averageTime() == accumulatedData.totalTime().dividedBy(numberOfServiceCalls)
       when:
-      ServiceCallStatistics.store(sharedServiceCallConnection, sharedServiceCall, secondCallData)
-      accumulatedData = ServiceCallStatistics.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
+      ServiceCallStatisticsDataStorage.store(sharedServiceCallConnection, sharedServiceCall, secondCallData)
+      accumulatedData = ServiceCallStatisticsDataStorage.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
       then:
       accumulatedData.numberOfPending() == ++numberOfPending
       accumulatedData.totalPendingTime() == initialPendingDuration
@@ -106,8 +106,8 @@ class ServiceCallStatisticsTest extends Specification
       accumulatedData.totalTime() == initialDuration + secondDuration
       accumulatedData.averageTime() == accumulatedData.totalTime().dividedBy(numberOfServiceCalls)
       when:
-      ServiceCallStatistics.store(sharedServiceCallConnection, sharedServiceCall, thirdCallData)
-      accumulatedData = ServiceCallStatistics.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
+      ServiceCallStatisticsDataStorage.store(sharedServiceCallConnection, sharedServiceCall, thirdCallData)
+      accumulatedData = ServiceCallStatisticsDataStorage.get(sharedServiceCallConnection, sharedServiceCall).orElseThrow {new CasualRuntimeException("missing entry")}
       then:
       accumulatedData.numberOfPending() == ++numberOfPending
       accumulatedData.totalPendingTime() == initialPendingDuration + secondPendingDuration

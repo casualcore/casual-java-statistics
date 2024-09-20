@@ -13,7 +13,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import se.laz.casual.statistics.ServiceCallConnection;
-import se.laz.casual.statistics.ServiceCallStatistics;
+import se.laz.casual.statistics.ServiceCallStatisticsDataStorage;
 import se.laz.casual.statistics.json.GsonProvider;
 
 import java.util.logging.Level;
@@ -26,11 +26,14 @@ public class StatisticsResource
     @Path("/")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all()
+    public Response allConnections()
     {
         try
         {
-            String json = GsonProvider.getGson().toJson(ServiceCallStatistics.getAll());
+            String json = GsonProvider.getGson().toJson(ServiceCallStatisticsDataStorage.getAllConnections().stream()
+                                                                                        .map(ServiceCallConnection::connectionName)
+                                                                                        .sorted()
+                                                                                        .toList());
             return Response.ok(json).build();
         }
         catch(Exception e)
@@ -39,6 +42,7 @@ public class StatisticsResource
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
+
     @Path("{connection}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,12 +50,29 @@ public class StatisticsResource
     {
         try
         {
-            String json = GsonProvider.getGson().toJson(ServiceCallStatistics.get(new ServiceCallConnection(connection)));
+            String json = GsonProvider.getGson().toJson(ServiceCallStatisticsDataStorage.get(new ServiceCallConnection(connection)));
             return Response.ok(json).build();
         }
         catch(Exception e)
         {
             LOG.log(Level.WARNING, e, () -> "Failed to get statistics for connection " + connection);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @Path("/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response all()
+    {
+        try
+        {
+            String json = GsonProvider.getGson().toJson(ServiceCallStatisticsDataStorage.getAll());
+            return Response.ok(json).build();
+        }
+        catch(Exception e)
+        {
+            LOG.log(Level.WARNING, e, () -> "Failed to get statistics");
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

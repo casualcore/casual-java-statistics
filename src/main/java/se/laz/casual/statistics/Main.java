@@ -36,7 +36,7 @@ public class Main
                 ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 2);)
             {
                 Configuration configuration = ConfigurationService.of().getConfiguration();
-                EventWriter eventWriter = new EventWriter(AugmentedEventStoreFactory.getStore(domainId), ServiceCallStatistics::store, () -> true);
+                EventWriter eventWriter = new EventWriter(AugmentedEventStoreFactory.getStore(domainId), ServiceCallStatisticsDataStorage::store, () -> true);
                 executorService.submit(eventWriter::waitForMessageAndStore);
                 long backOffMilliseconds = 30_000L;
                 ClientPool pool = ClientPool.of(configuration, backOffMilliseconds, scheduledExecutorService::schedule, ClientFactory::createClient, domainId);

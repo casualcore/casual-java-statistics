@@ -17,13 +17,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ServiceCallStatistics
+public class ServiceCallStatisticsDataStorage
 {
     private static final String CONNECTION_CAN_NOT_BE_NULL = "connection can not be null";
     private static final String SERVICE_CALL_CAN_NOT_BE_NULL = "serviceCall can not be null";
     private static final Map<ServiceCall, ServiceCallAccumulatedData> EMPTY_MAP = new ConcurrentHashMap<>();
     private static final Map<ServiceCallConnection, Map<ServiceCall, ServiceCallAccumulatedData>> DATA = new ConcurrentHashMap<>();
-    private ServiceCallStatistics()
+    private ServiceCallStatisticsDataStorage()
     {}
     public static void store(ServiceCallConnection connection, ServiceCall serviceCall, ServiceCallData data)
     {
@@ -62,5 +62,15 @@ public class ServiceCallStatistics
         List<EntriesPerConnection> result = new ArrayList<>();
         DATA.keySet().forEach(item -> result.addAll(get(item)));
         return result;
+    }
+
+    public static List<ServiceCallConnection> getAllConnections()
+    {
+        return DATA.keySet().stream().toList();
+    }
+
+    public static void clear()
+    {
+        DATA.clear();
     }
 }

@@ -45,15 +45,24 @@ Note that the actual uber-jar artifact from maven central will thus have the fol
 ## How to query for information
 
 The endpoints that can be used for querying of information are as follows:
-* `http://localhost:8080/statistics` - statistics for all connections
-* `http://localhost:8080/statistics/10.98.129.216:7698` - statistics for the connection `10.98.129.216:7698`
+* `http://localhost:8080/statistics` - list all connections
+
+Example output:
+```json
+[
+  "connectionOne.foo.bar.com:8778",
+  "connectionTwo.foo.bar.com:8778"
+]
+```
+
+* `http://localhost:8080/statistics/connectionOne.foo.bar.com:8778` - statistics for the connection `connectionOne.foo.bar.com:8778`
 
 Example output:
 ```json
 [
   {
     "connection": {
-      "connectionName": "10.98.129.216:7698"
+      "connectionName": "connectionOne.foo.bar.com:8778"
     },
     "entries": [
       {
@@ -68,7 +77,7 @@ Example output:
           "maxTime": 0.003,
           "numberOfPending": 9,
           "pendingAverageTime": 0.001,
-          "lastCall": "2024-06-11T10:43:14.038054"
+          "lastCall": "2024-06-11T10:43:14.038054+02:00"
         }
       },
       {
@@ -83,7 +92,7 @@ Example output:
           "maxTime": 0.015,
           "numberOfPending": 0,
           "pendingAverageTime": 0.0,
-          "lastCall": "2024-06-11T10:43:14.034087"
+          "lastCall": "2024-06-11T10:43:14.034087+02:00"
         }
       }
     ]
@@ -98,7 +107,7 @@ Legend for the accumulated data:
 * maxTime - the maximum time, in seconds
 * numberOfPending - number of pending calls
 * pendingAverageTime - the average pending time, in seconds
-* lastCall - when the last call was called as LocalDateTime using system default ZoneId
+* lastCall - when the last call was called as using system default zone id in utc offset format
   
 
 # Quarkus information ( Developer information - if you are not a dev you can stop reading here)
