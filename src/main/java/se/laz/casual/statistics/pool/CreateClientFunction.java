@@ -8,6 +8,7 @@ package se.laz.casual.statistics.pool;
 
 import se.laz.casual.statistics.AugmentedEventStore;
 
+// A function to create a client
 @FunctionalInterface
 public interface CreateClientFunction
 {

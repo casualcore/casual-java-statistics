@@ -19,6 +19,7 @@ import se.laz.casual.statistics.json.GsonProvider;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// The JAX-RS implementation
 @Path("/statistics")
 public class StatisticsResource
 {

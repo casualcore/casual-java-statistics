@@ -9,6 +9,8 @@ package se.laz.casual.statistics;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
+// Waits for events from an augmented event store and uses a store function to store them in another place
+// That place could be anywhere but currently is in mem
 public class EventWriter
 {
     private final AugmentedEventStore eventStore;

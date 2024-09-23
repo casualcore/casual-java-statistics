@@ -19,7 +19,7 @@ It looks like this:
 ```json
 {
     "addresses":[         
-        {"hostName":"10.98.129.216", "portNumber":7698}
+        {"hostName":"connectionOne.foo.bar.com", "portNumber":7698}
     ]
 }
 ```

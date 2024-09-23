@@ -10,6 +10,7 @@ import se.laz.casual.api.CasualRuntimeException;
 
 import java.io.Serial;
 
+// An exception for when an augmented event store thread is interrupted
 public class AugmentedEventStoreInterruptedException extends CasualRuntimeException
 {
     @Serial

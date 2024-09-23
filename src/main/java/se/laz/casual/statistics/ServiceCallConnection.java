@@ -8,6 +8,7 @@ package se.laz.casual.statistics;
 
 import java.util.Objects;
 
+// Unique identifier for a connection ( foo.bar.baz:8989 etc)
 public record ServiceCallConnection(String connectionName)
 {
     public ServiceCallConnection

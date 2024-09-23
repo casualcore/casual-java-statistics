@@ -8,6 +8,7 @@ package se.laz.casual.statistics;
 
 import java.util.Objects;
 
+// Augments a service call event with further information that we use internally
 public record AugmentedEvent(ServiceCallConnection connection, ServiceCall serviceCall, ServiceCallData data)
 {
     public AugmentedEvent

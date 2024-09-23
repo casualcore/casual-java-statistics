@@ -8,6 +8,7 @@ package se.laz.casual.statistics.pool;
 
 import java.util.Objects;
 
+// Represents an address such as foo.bar.baz:8989
 public record Address(String hostName, Integer portNumber)
 {
     public Address

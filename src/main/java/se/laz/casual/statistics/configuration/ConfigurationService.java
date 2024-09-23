@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 
+// The configuration service
 public class ConfigurationService
 {
     public static final String ENV_VAR_NAME = "CASUAL_STATISTICS_CONFIGURATION_FILE";

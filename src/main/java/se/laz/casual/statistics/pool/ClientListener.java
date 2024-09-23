@@ -6,6 +6,7 @@
 
 package se.laz.casual.statistics.pool;
 
+// An interface for when a client is disconnected
 public interface ClientListener
 {
     void disconnected(Client client);

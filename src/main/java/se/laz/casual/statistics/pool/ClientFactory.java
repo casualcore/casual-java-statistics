@@ -6,20 +6,21 @@
 
 package se.laz.casual.statistics.pool;
 
+import org.jboss.logging.Logger;
 import se.laz.casual.statistics.AugmentedEventStore;
 
+// Factory to create clients
 public final class ClientFactory
 {
+    private static final Logger LOG = Logger.getLogger(ClientPool.class.getName());
     private ClientFactory()
     {}
-    // We build with logging level WARN, however we do want to output this information regardless
-    // it is also not a warning
-    @SuppressWarnings("java:S106")
+
     public static Client createClient(Address address, ClientListener listener, AugmentedEventStore store)
     {
         Client client = Client.of(address, listener, store);
         client.connect().join();
-        System.out.println("Connected to " + address);
+        LOG.log(Logger.Level.INFO, "Connected to " + address);
         return client;
     }
 }

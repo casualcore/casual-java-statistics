@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+// Converts time units
 public class TimeConverter
 {
     public static final float MICROSECONDS_TO_SECONDS_FACTOR = 1000_000F;

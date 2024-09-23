@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
+// A factory for augmented event stores
 public record AugmentedEventStoreFactory()
 {
     private static final Map<UUID, AugmentedEventStore> STORES = new ConcurrentHashMap<>();

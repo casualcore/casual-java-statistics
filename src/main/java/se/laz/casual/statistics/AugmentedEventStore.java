@@ -9,11 +9,14 @@ package se.laz.casual.statistics;
 import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 
-public record AugmentedEventStore(BlockingDeque<AugmentedEvent> events)
+// Use storage to store augmented events
+public class AugmentedEventStore
 {
-    public AugmentedEventStore
+    private final BlockingDeque<AugmentedEvent> events;
+    public AugmentedEventStore(BlockingDeque<AugmentedEvent> events)
     {
         Objects.requireNonNull(events, "events cannot be null");
+        this.events = events;
     }
     public void put(AugmentedEvent event)
     {

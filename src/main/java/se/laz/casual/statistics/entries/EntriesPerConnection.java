@@ -11,6 +11,7 @@ import se.laz.casual.statistics.ServiceCallConnection;
 import java.util.List;
 import java.util.Objects;
 
+// Represents entries per connection
 public record EntriesPerConnection(ServiceCallConnection connection, List<Entry> entries)
 {
     public EntriesPerConnection

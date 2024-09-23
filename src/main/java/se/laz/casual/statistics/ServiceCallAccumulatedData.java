@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+// Represents accumulated data for a service call
 public record ServiceCallAccumulatedData(long numberOfServiceCalls, Duration totalTime, Duration minTime, Duration maxTime, long numberOfPending, Duration totalPendingTime, LocalDateTime lastCall)
 {
     public ServiceCallAccumulatedData

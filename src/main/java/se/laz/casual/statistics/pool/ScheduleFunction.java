@@ -9,6 +9,7 @@ package se.laz.casual.statistics.pool;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+// Schedule function from the JDKs ScheduledExecutorService::schedule
 @FunctionalInterface
 public interface ScheduleFunction
 {

@@ -11,6 +11,7 @@ import se.laz.casual.statistics.ServiceCallAccumulatedData;
 
 import java.util.Objects;
 
+// Represents an entry
 public record Entry(ServiceCall serviceCall, ServiceCallAccumulatedData accumulatedData)
 {
     public Entry

@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Handles reconnection with backoff
 public record RepeatUntilSuccessTask<T>(Supplier<T> supplier, Consumer<T> consumer, ScheduleFunction scheduleFunction, BackoffHelper backoffHelper) implements Runnable
 {
     private static final Logger LOG = Logger.getLogger(RepeatUntilSuccessTask.class.getName());

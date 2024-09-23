@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+// The in mem representation of the accumulated data
 public class ServiceCallStatisticsDataStorage
 {
     private static final String CONNECTION_CAN_NOT_BE_NULL = "connection can not be null";

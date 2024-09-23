@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 
 import static se.laz.casual.statistics.TimeConverter.toSecondsWithPrecision;
 
+// A type adapter for serialization
 public class ServiceCallAccumulatedDataTypeAdapter implements JsonSerializer<ServiceCallAccumulatedData>
 {
     @Override

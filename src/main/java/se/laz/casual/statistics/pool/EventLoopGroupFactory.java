@@ -9,6 +9,7 @@ package se.laz.casual.statistics.pool;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 
+// To share the same event loop group
 public class EventLoopGroupFactory
 {
     private static final EventLoopGroup INSTANCE = new NioEventLoopGroup();

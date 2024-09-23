@@ -10,6 +10,7 @@ import se.laz.casual.event.Order;
 
 import java.util.Objects;
 
+// Represents a service call
 public record ServiceCall(String serviceName, Order order)
 {
     public ServiceCall

@@ -6,6 +6,7 @@
 
 package se.laz.casual.statistics.pool;
 
+import org.jboss.logging.Logger;
 import se.laz.casual.api.util.work.BackoffHelper;
 import se.laz.casual.statistics.AugmentedEventStore;
 import se.laz.casual.statistics.AugmentedEventStoreFactory;
@@ -18,8 +19,10 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+// A pool of clients
 public class ClientPool implements ClientListener
 {
+    private static final Logger LOG = Logger.getLogger(ClientPool.class.getName());
     private final List<Client> clients = new ArrayList<>();
     private final UUID domainId;
     private final Configuration configuration;
@@ -55,13 +58,11 @@ public class ClientPool implements ClientListener
         Consumer<Client> clientConsumer = clients::add;
         new RepeatUntilSuccessTask<>(clientSupplier, clientConsumer, scheduleFunction, BackoffHelper.of(maxBackoffMilliseconds)).start();
     }
-    // We build with logging level WARN, however we do want to output this information regardless
-    // it is also not a warning
-    @SuppressWarnings("java:S106")
+
     @Override
     public void disconnected(Client client)
     {
-        System.out.println("Disconnected from " + client);
+        LOG.log(Logger.Level.INFO, "Disconnected from " + client);
         clients.removeIf(instance -> Objects.equals(instance, client));
         connect(client.getHost());
     }

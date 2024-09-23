@@ -22,6 +22,7 @@ import se.laz.casual.statistics.ServiceCallData;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+// Represents a client
 public class Client implements EventObserver, ConnectionObserver
 {
     private final Address address;

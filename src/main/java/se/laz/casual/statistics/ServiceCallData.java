@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+// Data for the service call
 public record ServiceCallData(Duration callTimeInMicroseconds, Duration pendingTimeInMicroseconds, LocalDateTime lastCall)
 {
     public ServiceCallData

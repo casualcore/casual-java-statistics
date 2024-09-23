@@ -10,6 +10,7 @@ import se.laz.casual.api.CasualRuntimeException;
 
 import java.io.Serial;
 
+// Exception in case something goes awry with the configuration service
 public class ConfigurationServiceException extends CasualRuntimeException
 {
     @Serial

@@ -6,6 +6,7 @@
 
 package se.laz.casual.statistics;
 
+// Function to store data
 @FunctionalInterface
 public interface StoreFunction
 {
