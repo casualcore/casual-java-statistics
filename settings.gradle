@@ -1,0 +1,19 @@
+/*
+ * Copyright (c) 2024, The casual project. All rights reserved.
+ *
+ * This software is licensed under the MIT license, https://opensource.org/licenses/MIT
+ */
+//-*- coding: utf-8 -*-
+pluginManagement {
+    def quarkusPluginId='io.quarkus'
+    def quarkusPluginVersion='3.11.1'
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        mavenLocal()
+    }
+    plugins {
+        id "${quarkusPluginId}" version "${quarkusPluginVersion}"
+    }
+}
+rootProject.name='casual-java-statistics'
